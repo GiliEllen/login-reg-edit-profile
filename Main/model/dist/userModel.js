@@ -16,7 +16,8 @@ var UserSchema = new mongoose_1["default"].Schema({
     username: String,
     job: String,
     address: String,
-    profilePic: String
+    profilePic: String,
+    ifFirstLogin: Boolean
 });
 var UserModel = mongoose_1["default"].model('users', UserSchema);
 exports["default"] = UserModel;
@@ -26,5 +27,6 @@ exports.UserValidation = joi_1["default"].object({
     username: joi_1["default"].string(),
     job: joi_1["default"].string(),
     address: joi_1["default"].string(),
-    profilePic: joi_1["default"].string()
+    profilePic: joi_1["default"].string(),
+    ifFirstLogin: joi_1["default"].boolean()
 });

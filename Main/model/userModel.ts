@@ -14,7 +14,8 @@ const UserSchema = new mongoose.Schema({
     username:String,
     job:String,
     address:String,
-    profilePic:String
+    profilePic:String,
+    ifFirstLogin:Boolean
 })
 
 const UserModel = mongoose.model('users', UserSchema);
@@ -29,5 +30,7 @@ export const UserValidation = Joi.object({
     username:Joi.string(),
     job:Joi.string(),
     address:Joi.string(),
-    profilePic:Joi.string()
+    profilePic:Joi.string(),
+    ifFirstLogin:Joi.boolean()
+
 })
