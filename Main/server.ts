@@ -4,7 +4,7 @@ import mongoose from 'mongoose';
 require('dotenv').config()
 
 const app:express.Application = express();
-const port = process.env.PORT || 4000;
+const port = process.env.PORT || 4023;
 
 app.use(express.static('public'));
 app.use(express.json());
