@@ -40,22 +40,30 @@ exports.getUser = void 0;
 var userModel_1 = require("../model/userModel");
 function getUser(req, res) {
     return __awaiter(this, void 0, void 0, function () {
-        var userId, user;
+        var userId, user, error_1;
         return __generator(this, function (_a) {
-            try {
-                userId = req.query;
-                if (!userId)
-                    throw new Error("Couldn't get userId from query");
-                console.log(userId);
-                user = userModel_1["default"].findById(userId);
-                if (!user)
-                    throw new Error("Couldn't find user with the id: " + userId);
-                res.send({ user: user });
+            switch (_a.label) {
+                case 0:
+                    _a.trys.push([0, 2, , 3]);
+                    userId = req.body;
+                    if (!userId)
+                        throw new Error("Couldn't get userId from query");
+                    console.log(userId);
+                    return [4 /*yield*/, userModel_1["default"].findById(userId)];
+                case 1:
+                    user = _a.sent();
+                    if (!user)
+                        throw new Error("Couldn't find user with the id: " + userId);
+                    console.log(user);
+                    // const user = 450;
+                    res.send({ user: user });
+                    return [3 /*break*/, 3];
+                case 2:
+                    error_1 = _a.sent();
+                    res.send({ error: error_1.message });
+                    return [3 /*break*/, 3];
+                case 3: return [2 /*return*/];
             }
-            catch (error) {
-                res.send({ error: error.message });
-            }
-            return [2 /*return*/];
         });
     });
 }
