@@ -37,15 +37,20 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 exports.__esModule = true;
 exports.getUser = void 0;
+var userModel_1 = require("../model/userModel");
 function getUser(req, res) {
     return __awaiter(this, void 0, void 0, function () {
-        var userId;
+        var userId, user;
         return __generator(this, function (_a) {
             try {
                 userId = req.query;
                 if (!userId)
                     throw new Error("Couldn't get userId from query");
                 console.log(userId);
+                user = userModel_1["default"].findById(userId);
+                if (!user)
+                    throw new Error("Couldn't find user with the id: " + userId);
+                res.send({ user: user });
             }
             catch (error) {
                 res.send({ error: error.message });

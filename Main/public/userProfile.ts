@@ -6,13 +6,18 @@ function getUserIdParams(): string {
 
 async function handleGetUser() {
     try {
-        const userId: string = getUserIdParams();
+        const userId = getUserIdParams();
         //@ts-ignore
         const { data } = await axios.get(`/user/get-user?userId=${userId}`);
         if (!data) throw new Error ("Couldn't recieve data from axios GET URL: *** /user/get-user ***");
         console.log(data);
-
+        
     } catch (error) {
         console.error(error);
     }
+}
+
+function handleEditProfile(){
+    const userId = getUserIdParams();
+    window.location.href = `./editProfile.html?userId=${userId}`;
 }

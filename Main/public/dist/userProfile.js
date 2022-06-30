@@ -63,3 +63,7 @@ function handleGetUser() {
         });
     });
 }
+function handleEditProfile() {
+    var userId = getUserIdParams();
+    window.location.href = "./editProfile.html?userId=" + userId;
+}
