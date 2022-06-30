@@ -1,5 +1,3 @@
-console.log(`connect`)
-
 function handleUserProfile() {
     try {
         window.location.href = `./userProfile.html`;
