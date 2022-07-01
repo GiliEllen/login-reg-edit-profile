@@ -13,6 +13,10 @@ const url = process.env.MONGO_URL as string;
 
 mongoose.connect(url).then(() => console.log("Connected to DB!"))
 
+import userRoutes from './routes/userRoutes';
+app.use('/user', userRoutes);
+
+
 app.listen(port, () => {
     console.log(`Server listening on port ${port}`);
 })
