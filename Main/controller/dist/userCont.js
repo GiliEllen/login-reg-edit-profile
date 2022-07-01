@@ -40,7 +40,7 @@ exports.login = exports.register = void 0;
 var userModel_1 = require("../model/userModel");
 function register(req, res) {
     return __awaiter(this, void 0, void 0, function () {
-        var _a, email, password, error, user, error_1;
+        var _a, email, password, error, ifFirstLogin, user, error_1;
         return __generator(this, function (_b) {
             switch (_b.label) {
                 case 0:
@@ -55,7 +55,8 @@ function register(req, res) {
                         console.debug(error);
                         throw error;
                     }
-                    user = new userModel_1["default"]({ email: email, password: password });
+                    ifFirstLogin = true;
+                    user = new userModel_1["default"]({ email: email, password: password, ifFirstLogin: ifFirstLogin });
                     return [4 /*yield*/, user.save()];
                 case 2:
                     _b.sent();

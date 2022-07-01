@@ -1,4 +1,4 @@
-
+//MONGO_URL = mongodb+srv://doritgy:bW6nUlcDdX9uUBgR@cluster0.grzjg.mongodb.net/LGDProject?retryWrites=true&w=majority
 import express from "express";
 import mongoose from 'mongoose';
 require('dotenv').config()

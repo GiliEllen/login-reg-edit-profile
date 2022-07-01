@@ -10,7 +10,8 @@ export async function register(req, res){
             throw error
         }
         //save to DB;
-        const user = new UserModel({email, password });
+        const ifFirstLogin=true
+        const user = new UserModel({email, password,ifFirstLogin });
         await user.save();
         console.debug(user)
         res.send({ register: true });

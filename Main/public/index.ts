@@ -3,6 +3,7 @@ async function handleRegister(ev){
   ev.preventDefault();
   let email = ev.target.email.value
   let password = ev.target.password.value
+  let ifFirstLogin=true
   console.log(email,password)
   try{
       //@ts-ignore
@@ -10,7 +11,6 @@ async function handleRegister(ev){
       const {register, error} = data
       if (register){
        alert("welcome, you are registered")
-        const ifFirstLogin:boolean = true
       }
       if (error) {
           throw new Error("not registered")
@@ -34,14 +34,15 @@ async function handleLogin(ev){
       if (error){
           throw new Error("user not found please register first")
       }
-
       console.log(user)
       const userID = user._id
       console.log(`userID after retrieving from user client ${userID}`)
-
-      window.location.href= `./home.html?userID=${userID}`
- 
-  } catch (error) {
+      if (user.ifFirstLogin){
+          window.location.href= `./home.html?userID=${userID}`
+      }else{
+          window.location.href= `./home.html?userID=${userID}`
+      }
+   } catch (error) {
      console.error(error) 
   }
 }

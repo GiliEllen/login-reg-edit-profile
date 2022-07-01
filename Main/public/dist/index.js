@@ -36,7 +36,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 function handleRegister(ev) {
     return __awaiter(this, void 0, void 0, function () {
-        var email, password, data, register, error, ifFirstLogin, error_1;
+        var email, password, ifFirstLogin, data, register, error, error_1;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
@@ -44,6 +44,7 @@ function handleRegister(ev) {
                     ev.preventDefault();
                     email = ev.target.email.value;
                     password = ev.target.password.value;
+                    ifFirstLogin = true;
                     console.log(email, password);
                     _a.label = 1;
                 case 1:
@@ -54,7 +55,6 @@ function handleRegister(ev) {
                     register = data.register, error = data.error;
                     if (register) {
                         alert("welcome, you are registered");
-                        ifFirstLogin = true;
                     }
                     if (error) {
                         throw new Error("not registered");
@@ -94,7 +94,12 @@ function handleLogin(ev) {
                     console.log(user);
                     userID = user._id;
                     console.log("userID after retrieving from user client " + userID);
-                    window.location.href = "./home.html?userID=" + userID;
+                    if (user.ifFirstLogin) {
+                        window.location.href = "./home.html?userID=" + userID;
+                    }
+                    else {
+                        window.location.href = "./home.html?userID=" + userID;
+                    }
                     return [3 /*break*/, 4];
                 case 3:
                     error_2 = _a.sent();
