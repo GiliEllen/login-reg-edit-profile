@@ -11,22 +11,26 @@
 <body>
 
     <h2>Edit this Profile</h2>
-    <form>
-        <label for="email"></label>
-        <input name="email" type="email">
-        <label for="password"></label>
-        <input name="password" type="password">
-        <label for="username"></label>
-        <input name="username" type="text">
-        <label for="job"></label>
-        <input name="job" type="text">
-        <label for="address"></label>
-        <input name="address" type="text">
-        <label for="profilePic"></label>
-        <input name="profilePic" type="url">
-        <button type="submit">Submit Changes</button>
+    <div class="form_container">
+        <form onsubmit="handleEditUser(event)">
+            <label for="email">Email:</label>
+            <input name="email" type="email">
+            <!-- <label for="password"></label>
+        <input name="password" type="password"> -->
+            <label for="username">UserName:</label>
+            <input name="username" type="text">
+            <label for="job">Job:</label>
+            <input name="job" type="text">
+            <label for="address">Address:</label>
+            <input name="address" type="text">
+            <label for="profilePic">Profile Picture:</label>
+            <input name="profilePic" type="url">
+            <button type="submit">Submit Changes</button>
 
-    </form>
+        </form>
+    </div>
+    <script src="./dist/editProfile.js"></script>
+
 </body>
 
 </html>
