@@ -1,4 +1,3 @@
-"use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -35,8 +34,6 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-exports.__esModule = true;
-var mongoose_1 = require("mongoose");
 function handleRegister(ev) {
     return __awaiter(this, void 0, void 0, function () {
         var email, password, data, register, error, ifFirstLogin, error_1;
@@ -60,7 +57,7 @@ function handleRegister(ev) {
                         ifFirstLogin = true;
                     }
                     if (error) {
-                        throw new mongoose_1.Error("not registered");
+                        throw new Error("not registered");
                     }
                     return [3 /*break*/, 4];
                 case 3:
@@ -92,7 +89,7 @@ function handleLogin(ev) {
                     console.log(data);
                     user = data.user, error = data.error;
                     if (error) {
-                        throw new mongoose_1.Error("user not found please register first");
+                        throw new Error("user not found please register first");
                     }
                     console.log(user);
                     userID = user._id;
@@ -107,19 +104,4 @@ function handleLogin(ev) {
             }
         });
     });
-}
-function getProfile(ev) {
-    console.log("getProfile");
-    try {
-        var queryString = window.location.search;
-        console.log(queryString);
-        var urlParams = new URLSearchParams(queryString);
-        var userID = urlParams.get("userID");
-        console.log(userID);
-        var welcome = document.querySelector('#welcome');
-        welcome.innerHTML = "<h1>welcome " + userID + "</h1>";
-    }
-    catch (error) {
-        console.log(error);
-    }
 }
