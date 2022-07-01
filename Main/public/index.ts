@@ -1,22 +1,64 @@
-console.log(`connect`)
-//bW6nUlcDdX9uUBgR
-import express from 'express'
-import mongoose from 'mongoose'
-const app = express();
-const port = 3028;
-app.use(express.static('public'))
-app.use(express.json());
-import userRoutes from './routes/userRoutes';
+import { Error } from "mongoose";
 
-mongoose
-  .connect(
-    "mongodb+srv://doritgy:bW6nUlcDdX9uUBgR@cluster0.grzjg.mongodb.net/myDatabase?retryWrites=true&w=majority"
-  )
-  .then(() => {
-    console.log("Connected to DB!");
-  })
-  .catch((err) => console.log(err));
-app.use('/users',userRoutes)
-app.listen(port, () => {
-    console.log(`register/login app listening on port ${port}`);
-  });
+async function handleRegister(ev){
+  console.log("handleRegister")
+  ev.preventDefault();
+  let email = ev.target.email.value
+  let password = ev.target.password.value
+  console.log(email,password)
+  try{
+      //@ts-ignore
+      const {data} = await axios.post("/users/user-register",{email,password}) 
+      const {register, error} = data
+      if (register){
+       alert("welcome, you are registered")
+        const ifFirstLogin:boolean = true
+      }
+      if (error) {
+          throw new Error("not registered")
+      }   
+  }catch(error){
+      console.error(error)
+  }    
+}
+
+async function handleLogin(ev){
+  console.log("handleLogin")
+  ev.preventDefault();
+  let email = ev.target.email.value
+  let password = ev.target.password.value
+  console.log(email,password)
+  try {
+      //@ts-ignore
+      const {data} = await axios.post("/users/user-login",{email,password})
+      console.log(data)
+      const {user, error} = data
+      if (error){
+          throw new Error("user not found please register first")
+      }
+
+      console.log(user)
+      const userID = user._id
+      console.log(`userID after retrieving from user client ${userID}`)
+
+      window.location.href= `./home.html?userID=${userID}`
+ 
+  } catch (error) {
+     console.error(error) 
+  }
+}
+
+function getProfile(ev){
+  console.log("getProfile")
+  try {
+      const queryString = window.location.search
+      console.log(queryString);
+      const urlParams = new URLSearchParams(queryString);
+      const userID = urlParams.get("userID");
+      console.log(userID);
+      const welcome = document.querySelector('#welcome')
+      welcome.innerHTML = `<h1>welcome ${userID}</h1>`
+  } catch (error) {
+      console.log(error);
+  }
+}
