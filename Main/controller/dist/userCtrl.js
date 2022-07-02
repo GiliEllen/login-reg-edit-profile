@@ -36,9 +36,9 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-<<<<<<< HEAD
-exports.getUser = void 0;
+exports.login = exports.register = exports.editUser = exports.getUser = void 0;
 var userModel_1 = require("../model/userModel");
+var userModel_2 = require("../model/userModel");
 function getUser(req, res) {
     return __awaiter(this, void 0, void 0, function () {
         var userId, user, error_1;
@@ -62,13 +62,16 @@ function getUser(req, res) {
                 case 2:
                     error_1 = _a.sent();
                     res.send({ error: error_1.message });
-=======
-exports.editUser = void 0;
-var userModel_1 = require("../model/userModel");
-var userModel_2 = require("../model/userModel");
+                    return [3 /*break*/, 3];
+                case 3: return [2 /*return*/];
+            }
+        });
+    });
+}
+exports.getUser = getUser;
 function editUser(req, res) {
     return __awaiter(this, void 0, void 0, function () {
-        var userid, _a, email, username, job, address, profilePic, error, user, error_1;
+        var userid, _a, email, username, job, address, profilePic, error, user, error_2;
         return __generator(this, function (_b) {
             switch (_b.label) {
                 case 0:
@@ -90,18 +93,81 @@ function editUser(req, res) {
                     user = userModel_1["default"].findOne(email);
                     return [3 /*break*/, 3];
                 case 2:
-                    error_1 = _b.sent();
-                    console.error(error_1);
-                    res.send({ eror: error_1.message });
->>>>>>> gili
+                    error_2 = _b.sent();
+                    console.error(error_2);
+                    res.send({ eror: error_2.message });
                     return [3 /*break*/, 3];
                 case 3: return [2 /*return*/];
             }
         });
     });
 }
-<<<<<<< HEAD
-exports.getUser = getUser;
-=======
 exports.editUser = editUser;
->>>>>>> gili
+function register(req, res) {
+    return __awaiter(this, void 0, void 0, function () {
+        var _a, email, password, error, username, job, adress, profilepic, ifFirstLogin, user, error_3;
+        return __generator(this, function (_b) {
+            switch (_b.label) {
+                case 0:
+                    _b.trys.push([0, 2, , 3]);
+                    _a = req.body, email = _a.email, password = _a.password;
+                    error = userModel_2.UserValidation.validate({ email: email, password: password }).error;
+                    if (error) {
+                        console.debug(error);
+                        throw error;
+                    }
+                    username = "tbd";
+                    job = "tbd";
+                    adress = "tbd";
+                    profilepic = "tbd";
+                    ifFirstLogin = true;
+                    user = new userModel_1["default"]({ email: email, password: password, username: username, job: job, adress: adress, profilepic: profilepic, ifFirstLogin: ifFirstLogin });
+                    return [4 /*yield*/, user.save()];
+                case 1:
+                    _b.sent();
+                    res.send({ register: true, user: user });
+                    return [3 /*break*/, 3];
+                case 2:
+                    error_3 = _b.sent();
+                    res.send({ error: error_3.message });
+                    return [3 /*break*/, 3];
+                case 3: return [2 /*return*/];
+            }
+        });
+    });
+}
+exports.register = register;
+function login(req, res) {
+    return __awaiter(this, void 0, void 0, function () {
+        var _a, email, password, error, user, error_4;
+        return __generator(this, function (_b) {
+            switch (_b.label) {
+                case 0:
+                    _b.trys.push([0, 2, , 3]);
+                    _a = req.body, email = _a.email, password = _a.password;
+                    console.debug({ email: email, password: password });
+                    error = userModel_2.UserValidation.validate({ email: email, password: password }).error;
+                    if (error)
+                        throw error;
+                    return [4 /*yield*/, userModel_1["default"].findOne({ email: email, password: password })];
+                case 1:
+                    user = _b.sent();
+                    console.debug("user:" + user);
+                    if (!user) {
+                        res.send({ login: false });
+                    }
+                    else {
+                        console.debug("sending to client");
+                        res.send({ login: true, user: user });
+                    }
+                    return [3 /*break*/, 3];
+                case 2:
+                    error_4 = _b.sent();
+                    console.error(error_4);
+                    return [3 /*break*/, 3];
+                case 3: return [2 /*return*/];
+            }
+        });
+    });
+}
+exports.login = login;

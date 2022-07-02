@@ -1,8 +1,15 @@
 console.log(`connect`)
 
-function handleUserProfile() {
+function handleUserProfile(user) {
     try {
-        window.location.href = `./userProfile.html?userId=62bdc16d357537838b84aa53`;
+        window.location.href = `./userProfile.html?userId=${user._id}`;
+    } catch (error) {
+        console.error(error);
+    }
+}
+function handleEditUserProfile(user) {
+    try {
+        window.location.href = `./editProfile.html?userId=${user._id}`;
     } catch (error) {
         console.error(error);
     }
@@ -16,10 +23,13 @@ async function handleRegister(ev){
   console.log(email,password)
   try{
       //@ts-ignore
-      const {data} = await axios.post("/users/user-register",{email,password}) 
-      const {register, error} = data
+      const {data} = await axios.post("/user/user-register",{email, password}) 
+      const {register, user, error} = data
+      console.log(user)
       if (register){
-       alert("welcome, you are registered")
+       if(user.ifFirstLogin) {
+        handleEditUserProfile(user)
+       }
       }
       if (error) {
           throw new Error("not registered")
@@ -37,7 +47,7 @@ async function handleLogin(ev){
   console.log(email,password)
   try {
       //@ts-ignore
-      const {data} = await axios.post("/users/user-login",{email,password})
+      const {data} = await axios.post("/user/user-login",{email,password})
       console.log(data)
       const {user, error} = data
       if (error){

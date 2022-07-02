@@ -1,7 +1,6 @@
 import express from "express";
 import mongoose from 'mongoose';
 require('dotenv').config()
-import userRoutes from "./routes/userRoutes"
 
 const app:express.Application = express();
 const port = process.env.PORT || 4023;
@@ -15,10 +14,6 @@ mongoose.connect(url).then(() => console.log("Connected to DB!")).catch(() => co
 
 import userRoutes from './routes/userRoutes';
 app.use('/user', userRoutes);
-
-import userRoutes from './routes/userRoutes';
-app.use('/user', userRoutes);
-
 
 app.listen(port, () => {
     console.log(`Server listening on port ${port}`);

@@ -1,13 +1,3 @@
-<<<<<<< HEAD
-console.log("connect");
-function handleUserProfile() {
-    try {
-        window.location.href = "./userProfile.html?userId=62bdc16d357537838b84aa53";
-    }
-    catch (error) {
-        console.error(error);
-    }
-=======
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -44,9 +34,26 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
+console.log("connect");
+function handleUserProfile(user) {
+    try {
+        window.location.href = "./userProfile.html?userId=" + user._id;
+    }
+    catch (error) {
+        console.error(error);
+    }
+}
+function handleEditUserProfile(user) {
+    try {
+        window.location.href = "./editProfile.html?userId=" + user._id;
+    }
+    catch (error) {
+        console.error(error);
+    }
+}
 function handleRegister(ev) {
     return __awaiter(this, void 0, void 0, function () {
-        var email, password, ifFirstLogin, data, register, error, error_1;
+        var email, password, ifFirstLogin, data, register, user, error, error_1;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
@@ -59,12 +66,15 @@ function handleRegister(ev) {
                     _a.label = 1;
                 case 1:
                     _a.trys.push([1, 3, , 4]);
-                    return [4 /*yield*/, axios.post("/users/user-register", { email: email, password: password })];
+                    return [4 /*yield*/, axios.post("/user/user-register", { email: email, password: password })];
                 case 2:
                     data = (_a.sent()).data;
-                    register = data.register, error = data.error;
+                    register = data.register, user = data.user, error = data.error;
+                    console.log(user);
                     if (register) {
-                        alert("welcome, you are registered");
+                        if (user.ifFirstLogin) {
+                            handleEditUserProfile(user);
+                        }
                     }
                     if (error) {
                         throw new Error("not registered");
@@ -93,7 +103,7 @@ function handleLogin(ev) {
                     _a.label = 1;
                 case 1:
                     _a.trys.push([1, 3, , 4]);
-                    return [4 /*yield*/, axios.post("/users/user-login", { email: email, password: password })];
+                    return [4 /*yield*/, axios.post("/user/user-login", { email: email, password: password })];
                 case 2:
                     data = (_a.sent()).data;
                     console.log(data);
@@ -119,5 +129,4 @@ function handleLogin(ev) {
             }
         });
     });
->>>>>>> Dorit
 }

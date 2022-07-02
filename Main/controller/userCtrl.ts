@@ -1,6 +1,7 @@
 import express from 'express';
 import UserModel from '../model/userModel';
 import mongoose from 'mongoose';
+import { UserValidation } from '../model/userModel';
 
 export async function getUser (req: express.Request, res: express.Response) {
     try {
@@ -16,10 +17,7 @@ export async function getUser (req: express.Request, res: express.Response) {
         res.send({ error: error.message });
     }
 } 
-import express from 'express';
-import UserModel from '../model/userModel';
-import mongoose from 'mongoose';
-import { UserValidation } from '../model/userModel';
+
 
 export async function editUser(req, res) {
     try {
@@ -52,3 +50,50 @@ export async function editUser(req, res) {
         res.send({eror: error.message});
     }
 } 
+
+export async function register(req, res){
+
+    try {
+          const {email, password } = req.body;
+          const { error } = UserValidation.validate({ email, password });
+          if (error) {
+              console.debug(error)
+              throw error
+          }
+          const username = "tbd";
+          const job = "tbd";
+          const adress = "tbd";
+          const profilepic = "tbd";
+          const ifFirstLogin = true;
+
+          //save to DB;
+          const user = new UserModel({email, password, username, job, adress, profilepic, ifFirstLogin});
+          await user.save();
+          res.send({ register: true , user});
+        } catch (error) {
+          res.send({ error: error.message });
+        }
+  }
+  
+  export async function login(req, res){
+      try {
+          const {email, password} = req.body;
+          console.debug({email,password})
+          const{error} = UserValidation.validate({email,password});
+          if (error) throw error;
+          const user = await UserModel.findOne({email,password })
+         
+          console.debug(`user:${user}`)
+          if (!user) {
+            res.send({ login: false });
+          } else {
+              console.debug("sending to client")  
+              res.send({ login: true,user:user});
+          }
+   
+      } catch (error) {
+         console.error(error) 
+      }
+  
+  }
+  

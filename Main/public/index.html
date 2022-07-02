@@ -5,13 +5,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home Page</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.0.0-alpha.1/axios.min.js" integrity="sha512-xIPqqrfvUAc/Cspuj7Bq0UtHNo/5qkdyngx6Vwt+tmbvTLDszzXM0G6c91LXmGrRx8KEPulT+AfOOez+TeVylg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
 <body>
     <button onclick="handleUserProfile()">User Profile Page</button>
-
-   <a href="http://login.html"><h2>Click here to login</h2></a>
-   <a href="http://register.html"><h2>Click here to register</h2></a>
-    
     <div id="userEntryPage">
         <form onsubmit="handleRegister(event)">
             <input type="email" name="email" placeholder="Email">

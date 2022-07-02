@@ -3,16 +3,8 @@ function getUserIdParams(): string {
     const userId: string = urlParams.get("userId");
     return userId;
 }
-
-function handleUserProfile() {
-    try {
-        const userId = getUserIdParams();
-        window.location.href = `./userProfile.html?userId=${userId}`;
-    } catch (error) {
-        console.error(error);
-    }
-}
 console.log(`connected`)
+
 
 async function handleEditUser(event) {
     event.preventDefault()
