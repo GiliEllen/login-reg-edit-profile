@@ -36,6 +36,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
+<<<<<<< HEAD
 exports.getUser = void 0;
 var userModel_1 = require("../model/userModel");
 function getUser(req, res) {
@@ -61,10 +62,46 @@ function getUser(req, res) {
                 case 2:
                     error_1 = _a.sent();
                     res.send({ error: error_1.message });
+=======
+exports.editUser = void 0;
+var userModel_1 = require("../model/userModel");
+var userModel_2 = require("../model/userModel");
+function editUser(req, res) {
+    return __awaiter(this, void 0, void 0, function () {
+        var userid, _a, email, username, job, address, profilePic, error, user, error_1;
+        return __generator(this, function (_b) {
+            switch (_b.label) {
+                case 0:
+                    _b.trys.push([0, 2, , 3]);
+                    userid = 1;
+                    _a = req.body, email = _a.email, username = _a.username, job = _a.job, address = _a.address, profilePic = _a.profilePic;
+                    error = userModel_2.UserValidation.validate({ email: email, username: username, job: job, address: address, profilePic: profilePic }).error;
+                    if (error)
+                        throw error;
+                    return [4 /*yield*/, userModel_1["default"].updateOne({ userid: userid }, {
+                            email: email,
+                            username: username,
+                            job: job,
+                            address: address,
+                            profilePic: profilePic
+                        })];
+                case 1:
+                    _b.sent();
+                    user = userModel_1["default"].findOne(email);
+                    return [3 /*break*/, 3];
+                case 2:
+                    error_1 = _b.sent();
+                    console.error(error_1);
+                    res.send({ eror: error_1.message });
+>>>>>>> gili
                     return [3 /*break*/, 3];
                 case 3: return [2 /*return*/];
             }
         });
     });
 }
+<<<<<<< HEAD
 exports.getUser = getUser;
+=======
+exports.editUser = editUser;
+>>>>>>> gili

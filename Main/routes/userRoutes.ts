@@ -7,3 +7,5 @@ router
     .patch('/get-user', getUser);
 
 export default router;
+import { editUser } from '../controller/userCtrl';
+    .post('/edit-user', editUser)

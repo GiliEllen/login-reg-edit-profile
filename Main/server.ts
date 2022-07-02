@@ -15,6 +15,10 @@ mongoose.connect(url).then(() => console.log("Connected to DB!")).catch(() => co
 import userRoutes from './routes/userRoutes';
 app.use('/user', userRoutes);
 
+import userRoutes from './routes/userRoutes';
+app.use('/user', userRoutes);
+
+
 app.listen(port, () => {
     console.log(`Server listening on port ${port}`);
 })
