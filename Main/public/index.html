@@ -12,6 +12,19 @@
    <a href="http://login.html"><h2>Click here to login</h2></a>
    <a href="http://register.html"><h2>Click here to register</h2></a>
     
+    <div id="userEntryPage">
+        <form onsubmit="handleRegister(event)">
+            <input type="email" name="email" placeholder="Email">
+            <input type="password" name="password" placeholder="Password">
+            <button type="submit">Register</button>
+        </form>
+        <form onsubmit="handleLogin(event)">
+            <input type="email" name="email" placeholder="Email">
+            <input type="password" name="password" placeholder="Password">
+            <button type="submit">Login</button>
+        </form>
+    </div>    
     <script src="./dist/index.js"></script>
 </body>
 </html>
+

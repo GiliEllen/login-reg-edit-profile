@@ -1,9 +1,10 @@
 import express from "express";
 import mongoose from 'mongoose';
 require('dotenv').config()
+import userRoutes from "./routes/userRoutes"
 
 const app:express.Application = express();
-const port = process.env.PORT || 4000;
+const port = process.env.PORT || 4023;
 
 app.use(express.static('public'));
 app.use(express.json());
@@ -22,4 +23,11 @@ app.use('/user', userRoutes);
 app.listen(port, () => {
     console.log(`Server listening on port ${port}`);
 })
+
+
+
+
+
+
+
 

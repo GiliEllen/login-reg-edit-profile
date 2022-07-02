@@ -1,13 +1,4 @@
-<<<<<<< HEAD
-console.log("connect");
-function handleUserProfile() {
-    try {
-        window.location.href = "./userProfile.html?userId=62bdc16d357537838b84aa53";
-    }
-    catch (error) {
-        console.error(error);
-    }
-=======
+"use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -44,80 +35,75 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-function handleRegister(ev) {
+exports.__esModule = true;
+exports.login = exports.register = void 0;
+var userModel_1 = require("../model/userModel");
+function register(req, res) {
     return __awaiter(this, void 0, void 0, function () {
-        var email, password, ifFirstLogin, data, register, error, error_1;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
+        var _a, email, password, error, ifFirstLogin, user, error_1;
+        return __generator(this, function (_b) {
+            switch (_b.label) {
                 case 0:
-                    console.log("handleRegister");
-                    ev.preventDefault();
-                    email = ev.target.email.value;
-                    password = ev.target.password.value;
-                    ifFirstLogin = true;
-                    console.log(email, password);
-                    _a.label = 1;
+                    console.debug("async function register");
+                    _b.label = 1;
                 case 1:
-                    _a.trys.push([1, 3, , 4]);
-                    return [4 /*yield*/, axios.post("/users/user-register", { email: email, password: password })];
-                case 2:
-                    data = (_a.sent()).data;
-                    register = data.register, error = data.error;
-                    if (register) {
-                        alert("welcome, you are registered");
-                    }
+                    _b.trys.push([1, 3, , 4]);
+                    _a = req.body, email = _a.email, password = _a.password;
+                    console.debug("email,password " + email + " " + password);
+                    error = userModel_1.UserValidation.validate({ email: email, password: password }).error;
                     if (error) {
-                        throw new Error("not registered");
+                        console.debug(error);
+                        throw error;
                     }
+                    ifFirstLogin = true;
+                    user = new userModel_1["default"]({ email: email, password: password, ifFirstLogin: ifFirstLogin });
+                    return [4 /*yield*/, user.save()];
+                case 2:
+                    _b.sent();
+                    console.debug(user);
+                    res.send({ register: true });
                     return [3 /*break*/, 4];
                 case 3:
-                    error_1 = _a.sent();
-                    console.error(error_1);
+                    error_1 = _b.sent();
+                    res.send({ error: error_1.message });
                     return [3 /*break*/, 4];
                 case 4: return [2 /*return*/];
             }
         });
     });
 }
-function handleLogin(ev) {
+exports.register = register;
+function login(req, res) {
     return __awaiter(this, void 0, void 0, function () {
-        var email, password, data, user, error, userID, error_2;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
+        var _a, email, password, error, user, error_2;
+        return __generator(this, function (_b) {
+            switch (_b.label) {
                 case 0:
-                    console.log("handleLogin");
-                    ev.preventDefault();
-                    email = ev.target.email.value;
-                    password = ev.target.password.value;
-                    console.log(email, password);
-                    _a.label = 1;
+                    _b.trys.push([0, 2, , 3]);
+                    _a = req.body, email = _a.email, password = _a.password;
+                    console.debug({ email: email, password: password });
+                    error = userModel_1.UserValidation.validate({ email: email, password: password }).error;
+                    if (error)
+                        throw error;
+                    return [4 /*yield*/, userModel_1["default"].findOne({ email: email, password: password })];
                 case 1:
-                    _a.trys.push([1, 3, , 4]);
-                    return [4 /*yield*/, axios.post("/users/user-login", { email: email, password: password })];
-                case 2:
-                    data = (_a.sent()).data;
-                    console.log(data);
-                    user = data.user, error = data.error;
-                    if (error) {
-                        throw new Error("user not found please register first");
-                    }
-                    console.log(user);
-                    userID = user._id;
-                    console.log("userID after retrieving from user client " + userID);
-                    if (user.ifFirstLogin) {
-                        window.location.href = "./home.html?userID=" + userID;
+                    user = _b.sent();
+                    console.debug("user:" + user);
+                    if (!user) {
+                        res.send({ login: false });
                     }
                     else {
-                        window.location.href = "./home.html?userID=" + userID;
+                        console.debug("sending to client");
+                        res.send({ login: true, user: user });
                     }
-                    return [3 /*break*/, 4];
-                case 3:
-                    error_2 = _a.sent();
+                    return [3 /*break*/, 3];
+                case 2:
+                    error_2 = _b.sent();
                     console.error(error_2);
-                    return [3 /*break*/, 4];
-                case 4: return [2 /*return*/];
+                    return [3 /*break*/, 3];
+                case 3: return [2 /*return*/];
             }
         });
     });
->>>>>>> Dorit
 }
+exports.login = login;
