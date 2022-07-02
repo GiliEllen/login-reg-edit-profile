@@ -49,13 +49,11 @@ function getUser(req, res) {
                     userId = req.body.userId;
                     if (!userId)
                         throw new Error("Couldn't get userId from query");
-                    console.log(userId);
                     return [4 /*yield*/, userModel_1["default"].findById(userId)];
                 case 1:
                     user = _a.sent();
                     if (!user)
                         throw new Error("Couldn't find user with the id: " + userId);
-                    console.log(user);
                     // const user = 450;
                     res.send({ user: user });
                     return [3 /*break*/, 3];
@@ -71,33 +69,33 @@ function getUser(req, res) {
 exports.getUser = getUser;
 function editUser(req, res) {
     return __awaiter(this, void 0, void 0, function () {
-        var userid, _a, email, username, job, address, profilePic, error, user, error_2;
+        var _a, email, username, job, address, profilePic, userId, user, error_2;
         return __generator(this, function (_b) {
             switch (_b.label) {
                 case 0:
-                    _b.trys.push([0, 2, , 3]);
-                    userid = 1;
-                    _a = req.body, email = _a.email, username = _a.username, job = _a.job, address = _a.address, profilePic = _a.profilePic;
-                    error = userModel_2.UserValidation.validate({ email: email, username: username, job: job, address: address, profilePic: profilePic }).error;
-                    if (error)
-                        throw error;
-                    return [4 /*yield*/, userModel_1["default"].updateOne({ userid: userid }, {
-                            email: email,
-                            username: username,
-                            job: job,
-                            address: address,
-                            profilePic: profilePic
-                        })];
+                    _b.trys.push([0, 3, , 4]);
+                    _a = req.body, email = _a.email, username = _a.username, job = _a.job, address = _a.address, profilePic = _a.profilePic, userId = _a.userId;
+                    if (!userId)
+                        throw new Error("Couldn't get userId from query");
+                    return [4 /*yield*/, userModel_1["default"].findById(userId)];
                 case 1:
-                    _b.sent();
-                    user = userModel_1["default"].findOne(email);
-                    return [3 /*break*/, 3];
+                    user = _b.sent();
+                    user.email = email;
+                    user.username = username;
+                    user.job = job;
+                    user.address = address;
+                    user.profilePic = profilePic;
+                    return [4 /*yield*/, user.save()];
                 case 2:
+                    user = _b.sent();
+                    res.send(user);
+                    return [3 /*break*/, 4];
+                case 3:
                     error_2 = _b.sent();
                     console.error(error_2);
                     res.send({ eror: error_2.message });
-                    return [3 /*break*/, 3];
-                case 3: return [2 /*return*/];
+                    return [3 /*break*/, 4];
+                case 4: return [2 /*return*/];
             }
         });
     });
@@ -105,7 +103,7 @@ function editUser(req, res) {
 exports.editUser = editUser;
 function register(req, res) {
     return __awaiter(this, void 0, void 0, function () {
-        var _a, email, password, error, username, job, adress, profilepic, ifFirstLogin, user, error_3;
+        var _a, email, password, error, username, job, address, profilepic, ifFirstLogin, user, error_3;
         return __generator(this, function (_b) {
             switch (_b.label) {
                 case 0:
@@ -120,12 +118,12 @@ function register(req, res) {
                         console.debug(error);
                         throw error;
                     }
-                    username = "tbd";
-                    job = "tbd";
-                    adress = "tbd";
-                    profilepic = "tbd";
+                    username = "Please Enter Username";
+                    job = "Where do you work?";
+                    address = "Where do you live?";
+                    profilepic = "enter a url picture";
                     ifFirstLogin = true;
-                    user = new userModel_1["default"]({ email: email, password: password, username: username, job: job, adress: adress, profilepic: profilepic, ifFirstLogin: ifFirstLogin });
+                    user = new userModel_1["default"]({ email: email, password: password, username: username, job: job, address: address, profilepic: profilepic, ifFirstLogin: ifFirstLogin });
                     return [4 /*yield*/, user.save()];
                 case 2:
                     _b.sent();

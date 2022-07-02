@@ -7,7 +7,7 @@ router
     .post('/user-register', register)
     .post('/user-login', login)
     .post('/get-user', getUser)
-    .post('/edit-user', editUser)
+    .patch('/edit-user', editUser)
 
 
 export default router;

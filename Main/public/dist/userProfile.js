@@ -34,22 +34,12 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
+var mainRoot = document.querySelector('#mainRoot');
 function getUserIdByParams() {
     var urlParams = new URLSearchParams(window.location.search);
     var userId = urlParams.get("userId");
     return userId;
 }
-// async function handleGetUser() {
-//     try {
-//         const userId = getUserIdParams();
-//         //@ts-ignore
-//         const { data } = await axios.get(`/user/get-user?userId=${userId}`);
-//         if (!data) throw new Error ("Couldn't recieve data from axios GET URL: *** /user/get-user ***");
-//         console.log(data);
-//     } catch (error) {
-//         console.error(error);
-//     }
-// }
 function handleGetUser() {
     return __awaiter(this, void 0, void 0, function () {
         var userId, data, user, error, error_1;
@@ -65,10 +55,9 @@ function handleGetUser() {
                     if (!data)
                         throw new Error("couldn't recieve data from axios POST URL: *** /user/userId ***");
                     user = data.user, error = data.error;
-                    console.log(data);
+                    renderUser(user);
                     if (!error)
                         throw new Error(error);
-                    console.log(user);
                     return [3 /*break*/, 3];
                 case 2:
                     console.log("userprofile.ts not a valid id");
@@ -86,4 +75,8 @@ function handleGetUser() {
 function handleEditProfile() {
     var userId = getUserIdByParams();
     window.location.href = "./editProfile.html?userId=" + userId;
+}
+function renderUser(user) {
+    var html = "<img id=\"userProfilePicture\" src=\"\" alt=\"userProfilePicture\">\n<p>Username: " + user.username + "</p>\n<p>Email: " + user.email + "</p>\n<p>password:</p>\n<p>proffesion:" + user.job + "</p>\n<p>address:" + user.address + "</p>";
+    mainRoot.innerHTML = html;
 }

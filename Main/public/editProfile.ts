@@ -1,4 +1,5 @@
 console.log(`connected`)
+const editProfileForm = document.querySelector('#editProfileForm') as HTMLFormElement
 
 async function handleGetthisUser() {
     try {
@@ -8,10 +9,9 @@ async function handleGetthisUser() {
             const { data } = await axios.post('/user/get-user', { userId });
             if (!data) throw new Error("couldn't recieve data from axios POST URL: *** /user/userId ***");
             const { user, error } = data;
-            console.log(data);
+            renderUserOnForm(user)
+            
             if (!error) throw new Error(error);
-            console.log(user);
-            return user
         }
         else {
             console.log(`editprofile.ts not a valid id`)
@@ -25,6 +25,8 @@ async function handleGetthisUser() {
 async function handleEditUser(event) {
     event.preventDefault()
     try {
+        const userId = getUserIdParams();
+        console.log(userId)
         let { email, username, job, address, profilePic } = event.target.elements;
         email = email.value;
         username = username.value;
@@ -32,13 +34,19 @@ async function handleEditUser(event) {
         address = address.value;
         profilePic = profilePic.value;
 
-        const { data } = await await axios.post("/users/edit-user", {
-            email,
+        //@ts-ignore
+        const { data } = await axios.patch("/user/edit-user", 
+           { email,
             username,
             job,
             address,
             profilePic,
-        });
+            userId
+           }
+        );
+
+        const { user, error } = data;
+            renderUserOnForm(user)
     } catch (error) {
 
     }
@@ -51,11 +59,17 @@ function getUserIdParams(): string {
 }
 
 function handleUserProfile() {
-    const user = handleGetthisUser();
-    console.log(user)
     try {
-        window.location.href = `./userProfile.html?userId=${user._id}`;
+    const userid = getUserIdParams();
+        window.location.href = `./userProfile.html?userId=${userid}`;
     } catch (error) {
         console.error(error);
     }
+}
+
+function renderUserOnForm(user) {
+    editProfileForm.email.value = `${user.email}`;
+    editProfileForm.username.value = `${user.username}`;
+    editProfileForm.job.value = `${user.job}`;
+    editProfileForm.address.value = `${user.address}`;
 }

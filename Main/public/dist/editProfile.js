@@ -35,6 +35,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 console.log("connected");
+var editProfileForm = document.querySelector('#editProfileForm');
 function handleGetthisUser() {
     return __awaiter(this, void 0, void 0, function () {
         var userId, data, user, error, error_1;
@@ -50,11 +51,10 @@ function handleGetthisUser() {
                     if (!data)
                         throw new Error("couldn't recieve data from axios POST URL: *** /user/userId ***");
                     user = data.user, error = data.error;
-                    console.log(data);
+                    renderUserOnForm(user);
                     if (!error)
                         throw new Error(error);
-                    console.log(user);
-                    return [2 /*return*/, user];
+                    return [3 /*break*/, 3];
                 case 2:
                     console.log("editprofile.ts not a valid id");
                     _a.label = 3;
@@ -70,35 +70,38 @@ function handleGetthisUser() {
 }
 function handleEditUser(event) {
     return __awaiter(this, void 0, void 0, function () {
-        var _a, email, username, job, address, profilePic, data, error_2;
+        var userId, _a, email, username, job, address, profilePic, data, user, error, error_2;
         return __generator(this, function (_b) {
             switch (_b.label) {
                 case 0:
                     event.preventDefault();
                     _b.label = 1;
                 case 1:
-                    _b.trys.push([1, 4, , 5]);
+                    _b.trys.push([1, 3, , 4]);
+                    userId = getUserIdParams();
+                    console.log(userId);
                     _a = event.target.elements, email = _a.email, username = _a.username, job = _a.job, address = _a.address, profilePic = _a.profilePic;
                     email = email.value;
                     username = username.value;
                     job = job.value;
                     address = address.value;
                     profilePic = profilePic.value;
-                    return [4 /*yield*/, axios.post("/users/edit-user", {
-                            email: email,
+                    return [4 /*yield*/, axios.patch("/user/edit-user", { email: email,
                             username: username,
                             job: job,
                             address: address,
-                            profilePic: profilePic
+                            profilePic: profilePic,
+                            userId: userId
                         })];
-                case 2: return [4 /*yield*/, _b.sent()];
-                case 3:
+                case 2:
                     data = (_b.sent()).data;
-                    return [3 /*break*/, 5];
-                case 4:
+                    user = data.user, error = data.error;
+                    renderUserOnForm(user);
+                    return [3 /*break*/, 4];
+                case 3:
                     error_2 = _b.sent();
-                    return [3 /*break*/, 5];
-                case 5: return [2 /*return*/];
+                    return [3 /*break*/, 4];
+                case 4: return [2 /*return*/];
             }
         });
     });
@@ -109,12 +112,17 @@ function getUserIdParams() {
     return userId;
 }
 function handleUserProfile() {
-    var user = handleGetthisUser();
-    console.log(user);
     try {
-        window.location.href = "./userProfile.html?userId=" + user._id;
+        var userid = getUserIdParams();
+        window.location.href = "./userProfile.html?userId=" + userid;
     }
     catch (error) {
         console.error(error);
     }
+}
+function renderUserOnForm(user) {
+    editProfileForm.email.value = "" + user.email;
+    editProfileForm.username.value = "" + user.username;
+    editProfileForm.job.value = "" + user.job;
+    editProfileForm.address.value = "" + user.address;
 }

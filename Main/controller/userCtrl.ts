@@ -7,10 +7,8 @@ export async function getUser (req: express.Request, res: express.Response) {
     try {
         const {userId} = req.body;
         if (!userId) throw new Error("Couldn't get userId from query");
-        console.log(userId);
         const user = await UserModel.findById(userId);
         if(!user) throw new Error(`Couldn't find user with the id: ${userId}`);
-        console.log(user);
         // const user = 450;
         res.send({ user }); 
         
@@ -22,29 +20,19 @@ export async function getUser (req: express.Request, res: express.Response) {
 
 export async function editUser(req, res) {
     try {
-        const userid = 1
-        const { email, username, job, address,profilePic } = req.body;
-        const { error } = UserValidation.validate({ email, username, job, address,profilePic });
-        if (error) throw error;
+        const { email, username, job, address, profilePic, userId } = req.body;
+        if (!userId) throw new Error("Couldn't get userId from query");
 
-        await UserModel.updateOne({userid}, {
-        email: email,
-        username: username,
-        job: job,
-        address: address,
-        profilePic: profilePic,
-        });
-        
-        const user = UserModel.findOne(email)
-        // user.email = email;
-        // user.username = username;
-        // user.job = job;
-        // user.address = address;
-        // user.profilePic = profilePic;
-        // await user.save();
+        let user = await UserModel.findById(userId)
+        user.email= email;
+        user.username = username;
+        user.job = job;
+        user.address = address;
+        user.profilePic = profilePic;
 
-        // res.send({ok: true, result})
-        // console.log(result);
+        user = await user.save();
+
+        res.send(user)
 
     } catch(error) {
         console.error(error);
@@ -62,14 +50,14 @@ export async function register(req, res){
               console.debug(error)
               throw error
           }
-          const username = "tbd";
-          const job = "tbd";
-          const adress = "tbd";
-          const profilepic = "tbd";
+          const username = "Please Enter Username";
+          const job = "Where do you work?";
+          const address = "Where do you live?";
+          const profilepic = "enter a url picture";
           const ifFirstLogin = true;
 
           //save to DB;
-          const user = new UserModel({email, password, username, job, adress, profilepic, ifFirstLogin});
+          const user = new UserModel({email, password, username, job, address, profilepic, ifFirstLogin});
           await user.save();
           res.send({ register: true , user});
         } catch (error) {

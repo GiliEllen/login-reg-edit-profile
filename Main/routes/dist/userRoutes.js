@@ -8,5 +8,5 @@ router
     .post('/user-register', userCtrl_1.register)
     .post('/user-login', userCtrl_1.login)
     .post('/get-user', userCtrl_1.getUser)
-    .post('/edit-user', userCtrl_1.editUser);
+    .patch('/edit-user', userCtrl_1.editUser);
 exports["default"] = router;
