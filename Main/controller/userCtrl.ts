@@ -5,18 +5,14 @@ import { UserValidation } from '../model/userModel';
 
 export async function getUser (req: express.Request, res: express.Response) {
     try {
-        const userId = req.body;
+        const {userId} = req.body;
         if (!userId) throw new Error("Couldn't get userId from query");
         console.log(userId);
-       if( mongoose.Types.ObjectId.isValid(`${userId}`)) {
         const user = await UserModel.findById(userId);
         if(!user) throw new Error(`Couldn't find user with the id: ${userId}`);
         console.log(user);
         // const user = 450;
-        res.send({ user });
-       } else {
-        res.send(`not a valid id`)
-       }
+        res.send({ user }); 
         
     } catch (error) {
         res.send({ error: error.message });

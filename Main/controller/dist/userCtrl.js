@@ -38,7 +38,6 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 exports.__esModule = true;
 exports.login = exports.register = exports.editUser = exports.getUser = void 0;
 var userModel_1 = require("../model/userModel");
-var mongoose_1 = require("mongoose");
 var userModel_2 = require("../model/userModel");
 function getUser(req, res) {
     return __awaiter(this, void 0, void 0, function () {
@@ -46,12 +45,11 @@ function getUser(req, res) {
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    _a.trys.push([0, 4, , 5]);
-                    userId = req.body;
+                    _a.trys.push([0, 2, , 3]);
+                    userId = req.body.userId;
                     if (!userId)
                         throw new Error("Couldn't get userId from query");
                     console.log(userId);
-                    if (!mongoose_1["default"].Types.ObjectId.isValid("" + userId)) return [3 /*break*/, 2];
                     return [4 /*yield*/, userModel_1["default"].findById(userId)];
                 case 1:
                     user = _a.sent();
@@ -62,14 +60,10 @@ function getUser(req, res) {
                     res.send({ user: user });
                     return [3 /*break*/, 3];
                 case 2:
-                    res.send("not a valid id");
-                    _a.label = 3;
-                case 3: return [3 /*break*/, 5];
-                case 4:
                     error_1 = _a.sent();
                     res.send({ error: error_1.message });
-                    return [3 /*break*/, 5];
-                case 5: return [2 /*return*/];
+                    return [3 /*break*/, 3];
+                case 3: return [2 /*return*/];
             }
         });
     });
