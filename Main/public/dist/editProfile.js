@@ -34,15 +34,43 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-function getUserIdParams() {
-    var urlParams = new URLSearchParams(window.location.search);
-    var userId = urlParams.get("userId");
-    return userId;
-}
 console.log("connected");
+function handleGetthisUser() {
+    return __awaiter(this, void 0, void 0, function () {
+        var userId, data, user, error, error_1;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    _a.trys.push([0, 4, , 5]);
+                    userId = getUserIdParams();
+                    if (!userId.match(/^[0-9a-fA-F]{24}$/)) return [3 /*break*/, 2];
+                    return [4 /*yield*/, axios.post('/user/get-user', { userId: userId })];
+                case 1:
+                    data = (_a.sent()).data;
+                    if (!data)
+                        throw new Error("couldn't recieve data from axios POST URL: *** /user/userId ***");
+                    user = data.user, error = data.error;
+                    console.log(data);
+                    if (!error)
+                        throw new Error(error);
+                    console.log(user);
+                    return [3 /*break*/, 3];
+                case 2:
+                    console.log("editprofile.ts not a valid id");
+                    _a.label = 3;
+                case 3: return [3 /*break*/, 5];
+                case 4:
+                    error_1 = _a.sent();
+                    console.error(error_1);
+                    return [3 /*break*/, 5];
+                case 5: return [2 /*return*/];
+            }
+        });
+    });
+}
 function handleEditUser(event) {
     return __awaiter(this, void 0, void 0, function () {
-        var _a, email, username, job, address, profilePic, data, error_1;
+        var _a, email, username, job, address, profilePic, data, error_2;
         return __generator(this, function (_b) {
             switch (_b.label) {
                 case 0:
@@ -68,10 +96,15 @@ function handleEditUser(event) {
                     data = (_b.sent()).data;
                     return [3 /*break*/, 5];
                 case 4:
-                    error_1 = _b.sent();
+                    error_2 = _b.sent();
                     return [3 /*break*/, 5];
                 case 5: return [2 /*return*/];
             }
         });
     });
+}
+function getUserIdParams() {
+    var urlParams = new URLSearchParams(window.location.search);
+    var userId = urlParams.get("userId");
+    return userId;
 }
