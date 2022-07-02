@@ -54,7 +54,7 @@ function handleGetthisUser() {
                     if (!error)
                         throw new Error(error);
                     console.log(user);
-                    return [3 /*break*/, 3];
+                    return [2 /*return*/, user];
                 case 2:
                     console.log("editprofile.ts not a valid id");
                     _a.label = 3;
@@ -107,4 +107,14 @@ function getUserIdParams() {
     var urlParams = new URLSearchParams(window.location.search);
     var userId = urlParams.get("userId");
     return userId;
+}
+function handleUserProfile() {
+    var user = handleGetthisUser();
+    console.log(user);
+    try {
+        window.location.href = "./userProfile.html?userId=" + user._id;
+    }
+    catch (error) {
+        console.error(error);
+    }
 }

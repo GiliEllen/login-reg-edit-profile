@@ -56,9 +56,10 @@ function handleGetUser() {
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    _a.trys.push([0, 2, , 3]);
+                    _a.trys.push([0, 4, , 5]);
                     userId = getUserIdByParams();
-                    return [4 /*yield*/, axios.patch('/user/get-user', { userId: userId })];
+                    if (!userId.match(/^[0-9a-fA-F]{24}$/)) return [3 /*break*/, 2];
+                    return [4 /*yield*/, axios.post('/user/get-user', { userId: userId })];
                 case 1:
                     data = (_a.sent()).data;
                     if (!data)
@@ -70,10 +71,14 @@ function handleGetUser() {
                     console.log(user);
                     return [3 /*break*/, 3];
                 case 2:
+                    console.log("userprofile.ts not a valid id");
+                    _a.label = 3;
+                case 3: return [3 /*break*/, 5];
+                case 4:
                     error_1 = _a.sent();
                     console.error(error_1);
-                    return [3 /*break*/, 3];
-                case 3: return [2 /*return*/];
+                    return [3 /*break*/, 5];
+                case 5: return [2 /*return*/];
             }
         });
     });

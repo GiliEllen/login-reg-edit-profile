@@ -35,14 +35,6 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 console.log("connect");
-function handleUserProfile(user) {
-    try {
-        window.location.href = "./userProfile.html?userId=" + user._id;
-    }
-    catch (error) {
-        console.error(error);
-    }
-}
 function handleEditUserProfile(user) {
     try {
         window.location.href = "./editProfile.html?userId=" + user._id;

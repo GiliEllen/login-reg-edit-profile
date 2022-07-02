@@ -11,6 +11,7 @@ async function handleGetthisUser() {
             console.log(data);
             if (!error) throw new Error(error);
             console.log(user);
+            return user
         }
         else {
             console.log(`editprofile.ts not a valid id`)
@@ -47,4 +48,14 @@ function getUserIdParams(): string {
     const urlParams: URLSearchParams = new URLSearchParams(window.location.search);
     const userId: string = urlParams.get("userId");
     return userId;
+}
+
+function handleUserProfile() {
+    const user = handleGetthisUser();
+    console.log(user)
+    try {
+        window.location.href = `./userProfile.html?userId=${user._id}`;
+    } catch (error) {
+        console.error(error);
+    }
 }

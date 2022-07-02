@@ -19,14 +19,20 @@ function getUserIdByParams(): string {
 
 async function handleGetUser() {
     try {
+        
         const userId = getUserIdByParams();
+        if (userId.match(/^[0-9a-fA-F]{24}$/)) {
         //@ts-ignore
-        const { data } = await axios.patch('/user/get-user', { userId });
+        const { data } = await axios.post('/user/get-user', { userId });
         if (!data) throw new Error("couldn't recieve data from axios POST URL: *** /user/userId ***");
         const { user , error} = data;
         console.log(data);
         if(!error) throw new Error(error);
-        console.log(user);
+        console.log(user);}
+        else {
+            console.log(`userprofile.ts not a valid id`)
+        }
+
     } catch (error) {
         console.error(error);
     }
