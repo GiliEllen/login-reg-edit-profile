@@ -38,6 +38,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 exports.__esModule = true;
 exports.editUser = void 0;
 var userModel_1 = require("../model/userModel");
+var userModel_2 = require("../model/userModel");
 function editUser(req, res) {
     return __awaiter(this, void 0, void 0, function () {
         var userid, _a, email, username, job, address, profilePic, error, user, error_1;
@@ -47,7 +48,7 @@ function editUser(req, res) {
                     _b.trys.push([0, 2, , 3]);
                     userid = 1;
                     _a = req.body, email = _a.email, username = _a.username, job = _a.job, address = _a.address, profilePic = _a.profilePic;
-                    error = UserValidation.validate({ email: email, username: username, job: job, address: address, profilePic: profilePic }).error;
+                    error = userModel_2.UserValidation.validate({ email: email, username: username, job: job, address: address, profilePic: profilePic }).error;
                     if (error)
                         throw error;
                     return [4 /*yield*/, userModel_1["default"].updateOne({ userid: userid }, {
@@ -60,14 +61,6 @@ function editUser(req, res) {
                 case 1:
                     _b.sent();
                     user = userModel_1["default"].findOne(email);
-                    // user.email = email;
-                    // user.username = username;
-                    // user.job = job;
-                    // user.address = address;
-                    // user.profilePic = profilePic;
-                    // await user.save();
-                    res.send({ ok: true, result: result });
-                    console.log(result);
                     return [3 /*break*/, 3];
                 case 2:
                     error_1 = _b.sent();

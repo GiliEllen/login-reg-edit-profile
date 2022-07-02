@@ -1,6 +1,7 @@
 import express from 'express';
 import UserModel from '../model/userModel';
 import mongoose from 'mongoose';
+import { UserValidation } from '../model/userModel';
 
 export async function editUser(req, res) {
     try {
@@ -25,8 +26,8 @@ export async function editUser(req, res) {
         // user.profilePic = profilePic;
         // await user.save();
 
-        res.send({ok: true, result})
-        console.log(result);
+        // res.send({ok: true, result})
+        // console.log(result);
 
     } catch(error) {
         console.error(error);
