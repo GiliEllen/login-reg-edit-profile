@@ -96,7 +96,9 @@ function handleEditUser(event) {
                 case 2:
                     data = (_b.sent()).data;
                     user = data.user, error = data.error;
-                    renderUserOnForm(user);
+                    console.log(user);
+                    console.log("Changes Saved Succssesfully, redirectiong now...");
+                    window.location.href = "./home.html?userID=" + userId;
                     return [3 /*break*/, 4];
                 case 3:
                     error_2 = _b.sent();
@@ -121,8 +123,10 @@ function handleUserProfile() {
     }
 }
 function renderUserOnForm(user) {
+    console.log("trying to render form");
     editProfileForm.email.value = "" + user.email;
     editProfileForm.username.value = "" + user.username;
     editProfileForm.job.value = "" + user.job;
     editProfileForm.address.value = "" + user.address;
+    console.log("succssfuly rendered to form");
 }

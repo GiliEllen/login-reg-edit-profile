@@ -85,6 +85,7 @@ function editUser(req, res) {
                     user.job = job;
                     user.address = address;
                     user.profilePic = profilePic;
+                    user.ifFirstLogin = false;
                     return [4 /*yield*/, user.save()];
                 case 2:
                     user = _b.sent();

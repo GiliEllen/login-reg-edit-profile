@@ -29,6 +29,7 @@ export async function editUser(req, res) {
         user.job = job;
         user.address = address;
         user.profilePic = profilePic;
+        user.ifFirstLogin = false;
 
         user = await user.save();
 

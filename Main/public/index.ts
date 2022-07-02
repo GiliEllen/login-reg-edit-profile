@@ -48,12 +48,12 @@ async function handleLogin(ev){
           throw new Error("user not found please register first")
       }
       console.log(user)
-      const userID = user._id
-      console.log(`userID after retrieving from user client ${userID}`)
+      const userId = user._id
+      console.log(`userID after retrieving from user client ${userId}`)
       if (user.ifFirstLogin){
-          window.location.href= `./home.html?userID=${userID}`
+        handleEditUserProfile(user)
       }else{
-          window.location.href= `./home.html?userID=${userID}`
+          window.location.href= `./home.html?userId=${userId}`
       }
    } catch (error) {
      console.error(error) 

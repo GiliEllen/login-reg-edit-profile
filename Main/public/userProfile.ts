@@ -1,3 +1,4 @@
+
 const mainRoot = document.querySelector('#mainRoot')
 
 function getUserIdByParams(): string {

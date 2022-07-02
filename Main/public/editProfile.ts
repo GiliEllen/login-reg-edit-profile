@@ -1,3 +1,4 @@
+
 console.log(`connected`)
 const editProfileForm = document.querySelector('#editProfileForm') as HTMLFormElement
 
@@ -46,7 +47,9 @@ async function handleEditUser(event) {
         );
 
         const { user, error } = data;
-            renderUserOnForm(user)
+            console.log(user)
+            console.log(`Changes Saved Succssesfully, redirectiong now...`)
+            window.location.href = `./home.html?userID=${userId}`
     } catch (error) {
 
     }
@@ -68,8 +71,11 @@ function handleUserProfile() {
 }
 
 function renderUserOnForm(user) {
+    console.log(`trying to render form`)
     editProfileForm.email.value = `${user.email}`;
     editProfileForm.username.value = `${user.username}`;
     editProfileForm.job.value = `${user.job}`;
     editProfileForm.address.value = `${user.address}`;
+
+    console.log(`succssfuly rendered to form`)
 }
