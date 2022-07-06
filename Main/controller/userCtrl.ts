@@ -55,7 +55,7 @@ export async function register(req, res){
           const job = "Where do you work?";
           const address = "Where do you live?";
           const profilepic = "enter a url picture";
-          const ifFirstLogin = true;
+          let ifFirstLogin = true;
 
           //save to DB;
           const user = new UserModel({email, password, username, job, address, profilepic, ifFirstLogin});
